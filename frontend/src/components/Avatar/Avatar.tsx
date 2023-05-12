@@ -1,21 +1,21 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
-import './style.css';
+import './styles.css';
 
-const placeholder = {
-  src: 'https://placehold.co/128x128/png',
-  alt: 'placeholder text',
+type AvatarData = {
+  data: {
+    src: string;
+    alt: string;
+  };
 };
 
-function Avatar() {
+function Avatar({ data }: AvatarData) {
+  const { src, alt } = data;
+
   return (
     <RadixAvatar.Root className="AvatarRoot">
-      <RadixAvatar.AvatarImage
-        className="AvatarIamge"
-        src={placeholder.src}
-        alt={placeholder.alt}
-      />
+      <RadixAvatar.AvatarImage className="AvatarIamge" src={src} alt={alt} />
       <RadixAvatar.AvatarFallback className="AvatarFallback" delayMs={600}>
-        {placeholder.alt}
+        {alt}
       </RadixAvatar.AvatarFallback>
     </RadixAvatar.Root>
   );
