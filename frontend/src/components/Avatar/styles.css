@@ -1,0 +1,23 @@
+.AvatarRoot {
+  margin-right: 10px;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  overflow: hidden;
+  user-select: none;
+  /* size should be dynamically changed via props */
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+}
+
+.AvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* .AvatarFallback {} */
