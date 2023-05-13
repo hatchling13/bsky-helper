@@ -1,0 +1,9 @@
+.Post {
+  display: flex;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.Text {
+  white-space: pre-wrap;
+}

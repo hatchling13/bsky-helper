@@ -1,9 +1,13 @@
-import Post from './components/Post';
+import Post from './components/Post/Post';
+
+import { data } from './placeholderData';
 
 function App() {
   return (
     <>
-      <Post />
+      {data.map((post) => (
+        <Post key={post.id} data={post} />
+      ))}
     </>
   );
 }

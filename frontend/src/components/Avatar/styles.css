@@ -1,13 +1,15 @@
 .AvatarRoot {
-  margin: 10px;
-  display: inline-block;
+  margin-right: 10px;
+  display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  width: 128px;
-  height: 128px;
+  /* size should be dynamically changed via props */
+  width: 64px;
+  height: 64px;
   border-radius: 100%;
 }
 
