@@ -1,24 +1,20 @@
-import { createBrowserRouter } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from 'react-router-dom';
 
 import Root from './pages/Root';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import Timeline from './pages/Timeline';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      {
-        path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'timeline',
-        element: <Timeline />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route path="login" element={<Login />} />
+      <Route path="timeline" element={<Timeline />} />
+    </Route>
+  )
+);
 
 export default router;
