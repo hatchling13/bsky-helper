@@ -1,4 +1,4 @@
-export const data = [
+export const postData = [
   {
     id: 1,
     reposterDisplayName: 'Jane Doe',
@@ -76,3 +76,25 @@ export const data = [
     likesCount: 3,
   },
 ];
+
+export const profileData = {
+  displayName: 'John Doe',
+  handle: 'johndoe.bsky.social',
+  backgroundImage: {
+    src: 'https://placehold.co/600x400/png',
+    alt: 'placeholder text',
+  },
+  avatar: {
+    src: 'https://placehold.co/64x64/png',
+    alt: 'placeholder text',
+  },
+  followersCount: 23,
+  followingsCount: 56,
+  postsCount: 4,
+  bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
+  Vivamus volutpat nulla quis lacus mollis, in congue diam rutrum.\
+  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.\
+  Donec non fringilla risus.',
+  followedMe: false,
+  isFollowing: false,
+};

@@ -1,11 +1,11 @@
 import Post from '../components/Post/Post';
 
-import { data } from '../placeholderData';
+import { postData } from '../placeholderData';
 
 function Timeline() {
   return (
     <main>
-      {data.map((post) => (
+      {postData.map((post) => (
         <Post key={post.id} data={post} />
       ))}
     </main>

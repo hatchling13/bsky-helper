@@ -1,0 +1,30 @@
+.Profile {
+  display: flex;
+  flex-direction: column;
+}
+
+.ProfileAvatar {
+  margin-top: -5%;
+  margin-left: 1%;
+}
+
+.ProfileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ProfileMenu {
+  align-self: flex-end;
+}
+
+.ProfileIdentifier {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ProfileCounts {
+  display: flex;
+  gap: 10px;
+}
