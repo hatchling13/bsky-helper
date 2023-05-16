@@ -1,0 +1,15 @@
+.NewPost {
+  display: flex;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.NewPostForm {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.NewPostForm textarea {
+  resize: none;
+}
