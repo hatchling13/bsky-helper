@@ -12,7 +12,7 @@ const avatarData = {
   alt: 'placeholder text',
 };
 
-function NewPost() {
+function DraftEditor() {
   const [text, setText] = useState('');
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -22,17 +22,15 @@ function NewPost() {
   }
 
   return (
-    <section className="NewPost">
+    <section className="Editor">
       <Avatar src={avatarData.src} alt={avatarData.alt} />
-      <form className="NewPostForm" onSubmit={handleSubmit}>
+      <form className="EditorForm" onSubmit={handleSubmit}>
         <RadixVisuallyHidden.Root>
-          <RadixLabel.Root htmlFor="postText">
-            Text for new post
-          </RadixLabel.Root>
+          <RadixLabel.Root htmlFor="text">Text for new post</RadixLabel.Root>
         </RadixVisuallyHidden.Root>
         <TextareaAutosize
-          className="NewPostTextarea"
-          id="postText"
+          className="EditorTextarea"
+          id="text"
           placeholder="Something interesting?"
           value={text}
           onChange={(event) => setText(event.target.value)}
@@ -47,4 +45,4 @@ function NewPost() {
   );
 }
 
-export default NewPost;
+export default DraftEditor;

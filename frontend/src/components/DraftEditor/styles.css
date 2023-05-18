@@ -1,10 +1,10 @@
-.NewPost {
+.Editor {
   display: flex;
   padding: 5px;
   border: 1px solid black;
 }
 
-.NewPostForm {
+.EditorForm {
   flex-grow: 1;
   display: flex;
   gap: 10px;
@@ -12,7 +12,7 @@
   justify-content: center;
 }
 
-.NewPostTextarea {
+.EditorTextarea {
   resize: none;
   border: none;
 }
