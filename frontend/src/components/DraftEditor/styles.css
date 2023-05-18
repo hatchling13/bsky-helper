@@ -1,0 +1,18 @@
+.Editor {
+  display: flex;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.EditorForm {
+  flex-grow: 1;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.EditorTextarea {
+  resize: none;
+  border: none;
+}
