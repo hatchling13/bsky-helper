@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import * as RadixLabel from '@radix-ui/react-label';
 import * as RadixVisuallyHidden from '@radix-ui/react-visually-hidden';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import Avatar from '../Avatar/Avatar';
 
@@ -29,11 +30,14 @@ function NewPost() {
             Text for new post
           </RadixLabel.Root>
         </RadixVisuallyHidden.Root>
-        <textarea
+        <TextareaAutosize
+          className="NewPostTextarea"
           id="postText"
+          placeholder="Something interesting?"
           value={text}
           onChange={(event) => setText(event.target.value)}
           required
+          autoFocus
         />
         <button type="submit" disabled={text.length === 0}>
           Post
