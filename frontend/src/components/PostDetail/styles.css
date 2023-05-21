@@ -1,0 +1,8 @@
+.PostDetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.DetailUser {
+  display: flex;
+}
