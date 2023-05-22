@@ -14,6 +14,8 @@ function PostDetail({ data }: PostData) {
     likesCount,
   } = data;
 
+  const createdDate = new Date(createdAt);
+
   const { src, alt } = user.avatar;
 
   return (
@@ -28,15 +30,20 @@ function PostDetail({ data }: PostData) {
           <span>{user.displayName}</span>
           <br />
           <span>@{user.handle}</span>
+          {/* User menu */}
         </div>
       </section>
       <section>
+        {/* Replying to? */}
         <p>{content.text}</p>
         <section>{content.embed}</section>
-        <span>{createdAt}</span>
+        <span>{createdDate.toLocaleString()}</span>
+        <hr />
         <section>
+          {/* Repost/Quote count? */}
           <span>{replysCount} replys</span> <span>{likesCount} likes</span>
         </section>
+        <hr />
       </section>
     </article>
   );

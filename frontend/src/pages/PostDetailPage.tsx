@@ -9,6 +9,8 @@ function PostDetailPage() {
   return (
     <main>
       <PostDetail data={loaded.data} />
+      {/* Interactions */}
+      {/* Replys */}
     </main>
   );
 }
