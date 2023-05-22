@@ -1,0 +1,32 @@
+.DetailInteraction {
+  display: flex;
+  justify-content: space-around;
+}
+
+.DetailInteraction button {
+  background: none;
+  border: none;
+  width: 28px;
+  height: 28px;
+}
+
+.DetailInteraction svg {
+  width: 100%;
+  height: 100%;
+}
+
+.DetailInteraction button:hover {
+  cursor: pointer;
+  background-color: lightgray;
+  border-radius: 100%;
+}
+
+.DetailInteraction button:focus {
+  cursor: pointer;
+  background-color: lightgray;
+  border-radius: 100%;
+}
+
+.DetailInteraction button:active {
+  background-color: gray;
+}

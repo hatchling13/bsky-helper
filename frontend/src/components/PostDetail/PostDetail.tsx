@@ -39,7 +39,7 @@ function PostDetail({ data }: PostData) {
         <section>{content.embed}</section>
         <span>{createdDate.toLocaleString()}</span>
         <hr />
-        <section>
+        <section className="DetailAnalytics">
           {/* Repost/Quote count? */}
           <span>{replysCount} replys</span> <span>{likesCount} likes</span>
         </section>
