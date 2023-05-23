@@ -1,15 +1,18 @@
+import { useLoaderData } from 'react-router-dom';
+
 import DraftEditor from '../components/DraftEditor/DraftEditor';
 import Post from '../components/Post/Post';
 
-import { postData } from '../placeholderData';
+import type { PostData } from '../components/Post/Post';
 
 function Timeline() {
+  const loaded = useLoaderData() as Array<PostData>;
+
   return (
-    <main style={{ maxWidth: '600px' }}>
-      {/* Placeholder style for wireframing */}
+    <main>
       <DraftEditor />
-      {postData.map((post) => (
-        <Post key={post.id} data={post} />
+      {loaded.map((post) => (
+        <Post key={post.data.id} data={post.data} />
       ))}
     </main>
   );

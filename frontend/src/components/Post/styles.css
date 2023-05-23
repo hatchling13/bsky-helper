@@ -1,9 +1,14 @@
 .Post {
   display: flex;
   padding: 5px;
-  border: 1px solid black;
 }
 
-.Text {
+.PostContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.PostText {
   white-space: pre-wrap;
 }

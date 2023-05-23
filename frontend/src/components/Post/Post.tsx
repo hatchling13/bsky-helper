@@ -1,4 +1,5 @@
 import Avatar from '../Avatar/Avatar';
+import PostInteraction from '../PostInteraction/PostInteraction';
 
 import type { AvatarData } from '../Avatar/Avatar';
 
@@ -6,6 +7,7 @@ import './styles.css';
 
 export type PostData = {
   data: {
+    id: string;
     reposterDisplayName: string;
     user: {
       avatar: AvatarData;
@@ -38,25 +40,23 @@ function Post({ data }: PostData) {
 
   return (
     <article className="Post">
-      <Avatar src={src} alt={alt} />
       <section>
+        <Avatar src={src} alt={alt} />
+      </section>
+      <section className="PostContent">
         <span>
           <a href="#">{reposterDisplayName}</a> reposted
         </span>
-        <br />
         <span>
           {user.displayName} {`@${user.handle}`}
           {` - ${duration} milliseconds`}
         </span>
-        <section className="Content">
-          <p className="Text">{content.text}</p>
+        <section>
+          <p className="PostText">{content.text}</p>
           {/* Embed */}
         </section>
-        <div>
-          <span>Replys count : {replysCount}</span>
-          {', '}
-          <span>Likes count : {likesCount}</span>
-        </div>
+        {/* Need repost count data */}
+        <PostInteraction replys={replysCount} reposts={0} likes={likesCount} />
       </section>
     </article>
   );
