@@ -1,6 +1,6 @@
 export const postData = [
   {
-    id: 1,
+    id: '1',
     reposterDisplayName: 'Jane Doe',
     user: {
       avatar: {
@@ -19,7 +19,7 @@ export const postData = [
     likesCount: 0,
   },
   {
-    id: 2,
+    id: '2',
     reposterDisplayName: 'Danielle Rosario',
     user: {
       avatar: {
@@ -38,7 +38,7 @@ export const postData = [
     likesCount: 4,
   },
   {
-    id: 3,
+    id: '3',
     reposterDisplayName: 'Jane Doe',
     user: {
       avatar: {
@@ -57,7 +57,7 @@ export const postData = [
     likesCount: 1,
   },
   {
-    id: 4,
+    id: '4',
     reposterDisplayName: 'Jean Tucker',
     user: {
       avatar: {

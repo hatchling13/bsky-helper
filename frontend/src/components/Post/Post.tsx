@@ -1,8 +1,10 @@
-import Avatar, { AvatarData } from '../Avatar/Avatar';
+import Avatar from '../Avatar/Avatar';
+
+import type { AvatarData } from '../Avatar/Avatar';
 
 import './styles.css';
 
-type PostData = {
+export type PostData = {
   data: {
     reposterDisplayName: string;
     user: {

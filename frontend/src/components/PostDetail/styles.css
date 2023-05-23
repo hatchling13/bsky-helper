@@ -1,0 +1,13 @@
+.PostDetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.DetailUser {
+  display: flex;
+}
+
+.DetailAnalytics {
+  display: flex;
+  gap: 10px;
+}

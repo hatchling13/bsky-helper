@@ -8,6 +8,9 @@ import Root from './pages/Root';
 import Login from './pages/Login/Login';
 import Timeline from './pages/Timeline';
 import AuthorFeed from './pages/AuthorFeed';
+import PostDetailPage from './pages/PostDetailPage';
+
+import { postDetailLoader } from './loaders';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +18,11 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="timeline" element={<Timeline />} />
       <Route path="authorfeed" element={<AuthorFeed />} />
+      <Route
+        path="post/:postId"
+        element={<PostDetailPage />}
+        loader={postDetailLoader}
+      />
     </Route>
   )
 );
