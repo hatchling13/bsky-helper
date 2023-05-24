@@ -3,6 +3,11 @@
   padding: 5px;
 }
 
+.Post:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
 .PostContent {
   flex-grow: 1;
   display: flex;

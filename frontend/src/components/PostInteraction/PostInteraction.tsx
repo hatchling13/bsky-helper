@@ -1,6 +1,9 @@
 import { ChatBubbleIcon, LoopIcon, HeartIcon } from '@radix-ui/react-icons';
 
+import IconButton from '../IconButton/IconButton';
+
 import './styles.css';
+import type { MouseEvent } from 'react';
 
 // Radix Hover Card for popover when :hover
 
@@ -10,21 +13,23 @@ type PostInteractionType = {
   likes: number;
 };
 
+const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  event.stopPropagation();
+  console.log('Clicked Interaction');
+};
+
 function PostInteraction({ replys, reposts, likes }: PostInteractionType) {
   return (
     <section className="PostInteraction">
-      <button>
+      <IconButton handleClick={handleClick} label="replys" value={replys}>
         <ChatBubbleIcon />
-        {!!replys && replys}
-      </button>
-      <button>
+      </IconButton>
+      <IconButton handleClick={handleClick} label="reposts" value={reposts}>
         <LoopIcon />
-        {!!reposts && reposts}
-      </button>
-      <button>
+      </IconButton>
+      <IconButton handleClick={handleClick} label="likes" value={likes}>
         <HeartIcon />
-        {!!likes && likes}
-      </button>
+      </IconButton>
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import PostInteraction from '../PostInteraction/PostInteraction';
 
@@ -26,6 +27,7 @@ export type PostData = {
 
 function Post({ data }: PostData) {
   const {
+    id,
     reposterDisplayName,
     user,
     content,
@@ -34,12 +36,19 @@ function Post({ data }: PostData) {
     likesCount,
   } = data;
 
+  const navigate = useNavigate();
+
   const duration = Date.now() - new Date(createdAt).getUTCMilliseconds();
 
   const { src, alt } = user.avatar;
 
   return (
-    <article className="Post">
+    <article
+      className="Post"
+      tabIndex={0}
+      onClick={() => navigate(`/post/${id}`)}
+      onKeyDown={(event) => event.key === 'Enter' && navigate(`/post/${id}`)}
+    >
       <section>
         <Avatar src={src} alt={alt} />
       </section>
