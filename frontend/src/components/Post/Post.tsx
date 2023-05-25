@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import Avatar from '../Avatar/Avatar';
+import { useNavigate, Link } from 'react-router-dom';
+import AvatarLink from '../Avatar/AvatarLink';
 import PostInteraction from '../PostInteraction/PostInteraction';
 
 import type { AvatarData } from '../Avatar/Avatar';
@@ -50,11 +50,18 @@ function Post({ data }: PostData) {
       onKeyDown={(event) => event.key === 'Enter' && navigate(`/post/${id}`)}
     >
       <section>
-        <Avatar src={src} alt={alt} />
+        <AvatarLink to="/authorfeed" src={src} alt={alt} />
       </section>
       <section className="PostContent">
         <span>
-          <a href="#">{reposterDisplayName}</a> reposted
+          <Link
+            to="/authorfeed"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.stopPropagation()}
+          >
+            {reposterDisplayName}
+          </Link>{' '}
+          reposted
         </span>
         <span>
           {user.displayName} {`@${user.handle}`}

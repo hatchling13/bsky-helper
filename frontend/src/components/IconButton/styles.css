@@ -4,17 +4,21 @@
   background: none;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .IconButton:hover {
-  cursor: pointer;
+  border-radius: 50%;
   color: white;
+  background-color: darkgray;
 }
 
 .Icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
   padding: 5px;
 }
 
@@ -23,11 +27,10 @@
   height: 100%;
 }
 
-.Icon:hover {
-  border-radius: 100%;
-  background-color: darkgray;
-}
-
 .IconLabel {
   padding: 5px;
+}
+
+.IconLabel:hover {
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ import * as RadixLabel from '@radix-ui/react-label';
 import * as RadixVisuallyHidden from '@radix-ui/react-visually-hidden';
 import TextareaAutosize from 'react-textarea-autosize';
 
-import Avatar from '../Avatar/Avatar';
+import AvatarLink from '../Avatar/AvatarLink';
 
 import './styles.css';
 
@@ -23,7 +23,7 @@ function DraftEditor() {
 
   return (
     <section className="Editor">
-      <Avatar src={avatarData.src} alt={avatarData.alt} />
+      <AvatarLink to="/authorfeed" src={avatarData.src} alt={avatarData.alt} />
       <form className="EditorForm" onSubmit={handleSubmit}>
         <RadixVisuallyHidden.Root>
           <RadixLabel.Root htmlFor="text">Text for new post</RadixLabel.Root>
