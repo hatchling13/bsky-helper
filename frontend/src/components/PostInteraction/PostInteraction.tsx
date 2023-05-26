@@ -6,6 +6,12 @@ import './styles.css';
 
 // Radix Hover Card for popover when :hover
 
+type PostInteractionType = {
+  replys: number;
+  reposts: number;
+  likes: number;
+};
+
 const reply = () => {
   console.log('Reply');
 };
@@ -18,20 +24,20 @@ const like = () => {
   console.log('Like');
 };
 
-function DetailInteraction() {
+function PostInteraction({ replys, reposts, likes }: PostInteractionType) {
   return (
-    <section className="DetailInteraction">
-      <IconButton handleInteraction={reply} label="" value={0}>
+    <section className="PostInteraction">
+      <IconButton handleInteraction={reply} label="replys" value={replys}>
         <ChatBubbleIcon />
       </IconButton>
-      <IconButton handleInteraction={repost} label="" value={0}>
+      <IconButton handleInteraction={repost} label="reposts" value={reposts}>
         <LoopIcon />
       </IconButton>
-      <IconButton handleInteraction={like} label="" value={0}>
+      <IconButton handleInteraction={like} label="likes" value={likes}>
         <HeartIcon />
       </IconButton>
     </section>
   );
 }
 
-export default DetailInteraction;
+export default PostInteraction;

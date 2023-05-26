@@ -1,4 +1,6 @@
-import Avatar from '../Avatar/Avatar';
+import { useNavigate, Link } from 'react-router-dom';
+import AvatarLink from '../Avatar/AvatarLink';
+import PostInteraction from '../PostInteraction/PostInteraction';
 
 import type { AvatarData } from '../Avatar/Avatar';
 
@@ -6,6 +8,7 @@ import './styles.css';
 
 export type PostData = {
   data: {
+    id: string;
     reposterDisplayName: string;
     user: {
       avatar: AvatarData;
@@ -24,6 +27,7 @@ export type PostData = {
 
 function Post({ data }: PostData) {
   const {
+    id,
     reposterDisplayName,
     user,
     content,
@@ -32,31 +36,43 @@ function Post({ data }: PostData) {
     likesCount,
   } = data;
 
+  const navigate = useNavigate();
+
   const duration = Date.now() - new Date(createdAt).getUTCMilliseconds();
 
   const { src, alt } = user.avatar;
 
   return (
-    <article className="Post">
-      <Avatar src={src} alt={alt} />
+    <article
+      className="Post"
+      tabIndex={0}
+      onClick={() => navigate(`/post/${id}`)}
+      onKeyDown={(event) => event.key === 'Enter' && navigate(`/post/${id}`)}
+    >
       <section>
+        <AvatarLink to="/authorfeed" src={src} alt={alt} />
+      </section>
+      <section className="PostContent">
         <span>
-          <a href="#">{reposterDisplayName}</a> reposted
+          <Link
+            to="/authorfeed"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={(event) => event.stopPropagation()}
+          >
+            {reposterDisplayName}
+          </Link>{' '}
+          reposted
         </span>
-        <br />
         <span>
           {user.displayName} {`@${user.handle}`}
           {` - ${duration} milliseconds`}
         </span>
-        <section className="Content">
-          <p className="Text">{content.text}</p>
+        <section>
+          <p className="PostText">{content.text}</p>
           {/* Embed */}
         </section>
-        <div>
-          <span>Replys count : {replysCount}</span>
-          {', '}
-          <span>Likes count : {likesCount}</span>
-        </div>
+        {/* Need repost count data */}
+        <PostInteraction replys={replysCount} reposts={0} likes={likesCount} />
       </section>
     </article>
   );

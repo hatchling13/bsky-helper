@@ -10,13 +10,13 @@ import Timeline from './pages/Timeline';
 import AuthorFeed from './pages/AuthorFeed';
 import PostDetailPage from './pages/PostDetailPage';
 
-import { postDetailLoader } from './loaders';
+import { postDetailLoader, getPosts } from './loaders';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route path="login" element={<Login />} />
-      <Route path="timeline" element={<Timeline />} />
+      <Route path="timeline" element={<Timeline />} loader={getPosts} />
       <Route path="authorfeed" element={<AuthorFeed />} />
       <Route
         path="post/:postId"

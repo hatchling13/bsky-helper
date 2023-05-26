@@ -1,4 +1,4 @@
-import Avatar from '../Avatar/Avatar';
+import AvatarLink from '../Avatar/AvatarLink';
 
 import type { PostData } from '../Post/Post';
 
@@ -21,7 +21,7 @@ function PostDetail({ data }: PostData) {
   return (
     <article className="PostDetail">
       <section className="DetailUser">
-        <Avatar src={src} alt={alt} />
+        <AvatarLink to="/authorfeed" src={src} alt={alt} />
         <div>
           <span>
             <a href="#">{reposterDisplayName}</a> reposted

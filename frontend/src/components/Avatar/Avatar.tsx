@@ -8,14 +8,12 @@ export type AvatarData = {
 
 function Avatar({ src, alt }: AvatarData) {
   return (
-    <a href="#">
-      <RadixAvatar.Root className="AvatarRoot">
-        <RadixAvatar.AvatarImage className="AvatarIamge" src={src} alt={alt} />
-        <RadixAvatar.AvatarFallback className="AvatarFallback" delayMs={600}>
-          {alt}
-        </RadixAvatar.AvatarFallback>
-      </RadixAvatar.Root>
-    </a>
+    <RadixAvatar.Root className="AvatarRoot">
+      <RadixAvatar.AvatarImage className="AvatarIamge" src={src} alt={alt} />
+      <RadixAvatar.AvatarFallback className="AvatarFallback" delayMs={600}>
+        {alt}
+      </RadixAvatar.AvatarFallback>
+    </RadixAvatar.Root>
   );
 }
 
