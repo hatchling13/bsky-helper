@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../AuthProvider';
 
 import type { ChangeEvent, FormEvent } from 'react';
 
@@ -8,11 +8,11 @@ import TextInput from '../../components/TextInput/TextInput';
 import './styles.css';
 
 function Login() {
+  const { user, login } = useContext(AuthContext);
+
   const [handle, setHandle] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(false);
-
-  const navigate = useNavigate();
 
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) =>
     setHandle(event.target.value);
@@ -24,15 +24,9 @@ function Login() {
 
     setDisabled(true);
 
-    const timeout = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
+    await login({ handle, password });
 
-    await timeout(3000);
-
-    console.log({ handle, password });
     setDisabled(false);
-
-    navigate('/timeline', { replace: true });
   };
 
   return (
@@ -55,6 +49,7 @@ function Login() {
           <button type="submit">Log in</button>
         </fieldset>
       </form>
+      {user.error && user.error.message}
     </main>
   );
 }

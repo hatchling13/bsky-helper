@@ -5,8 +5,7 @@ import { postData, profileData } from '../placeholderData';
 
 function AuthorFeed() {
   return (
-    <main style={{ width: '600px' }}>
-      {/* Placeholder style for wireframing */}
+    <main>
       <Profile data={profileData} />
       <hr />
       {postData.map((post) => (

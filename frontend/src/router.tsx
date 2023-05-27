@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Root from './pages/Root';
+import Root from './pages/Root/Root';
 import Login from './pages/Login/Login';
 import Timeline from './pages/Timeline';
 import AuthorFeed from './pages/AuthorFeed';
