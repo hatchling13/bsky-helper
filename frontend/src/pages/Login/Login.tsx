@@ -1,33 +1,37 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../AuthProvider';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import type { ChangeEvent, FormEvent } from 'react';
+import type { FormEvent } from 'react';
 
 import TextInput from '../../components/TextInput/TextInput';
+import { UserContext } from '../../providers/UserProvider';
 
 import './styles.css';
 
 function Login() {
-  const { user, login } = useContext(AuthContext);
+  const { user, login } = useContext(UserContext);
 
-  const [handle, setHandle] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(false);
 
-  const onHandleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setHandle(event.target.value);
-  const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setPassword(event.target.value);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setDisabled(true);
 
-    await login({ handle, password });
+    await login({ identifier, password });
 
     setDisabled(false);
   };
+
+  useEffect(() => {
+    if (user.did !== '') {
+      navigate('/timeline', { replace: true });
+    }
+  }, [user, navigate]);
 
   return (
     <main className="LoginPage">
@@ -37,19 +41,18 @@ function Login() {
           <TextInput
             type="text"
             label="Handle"
-            value={handle}
-            onChange={onHandleChange}
+            value={identifier}
+            onChange={(event) => setIdentifier(event.target.value)}
           />
           <TextInput
             type="password"
             label="Password"
             value={password}
-            onChange={onPasswordChange}
+            onChange={(event) => setPassword(event.target.value)}
           />
           <button type="submit">Log in</button>
         </fieldset>
       </form>
-      {user.error && user.error.message}
     </main>
   );
 }

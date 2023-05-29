@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import AuthProvider from '../../AuthProvider';
+import AuthProvider from '../../providers/UserProvider';
 
 import './styles.css';
 
