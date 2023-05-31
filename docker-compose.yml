@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   bsky-server:
-    image: happyostrich/bluesky-api-client:0.0.1
+    image: happyostrich/bluesky-api-client
     ports:
       - "8080:8080"
 

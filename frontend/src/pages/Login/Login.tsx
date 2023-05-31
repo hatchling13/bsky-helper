@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isExpired } from 'react-jwt';
 
 import type { FormEvent } from 'react';
 
@@ -29,7 +30,11 @@ function Login() {
 
   useEffect(() => {
     if (user.did !== '') {
-      navigate('/timeline', { replace: true });
+      if (isExpired(user.jwt.access)) {
+        alert('Access token expired!');
+      } else {
+        navigate('/timeline', { replace: true });
+      }
     }
   }, [user, navigate]);
 
