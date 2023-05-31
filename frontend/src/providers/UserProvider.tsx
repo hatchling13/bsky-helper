@@ -1,42 +1,31 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import type { ReactNode } from 'react';
 
-import { postLogin } from '../endpoints/post';
+import { UserContext } from './contexts';
+import { apiLogin, apiRefresh } from '../endpoints/post';
 import { anonymous } from '../utils/constants';
-import type {
-  AuthDataType,
-  BskyUserDataType,
-  UserContextType,
-} from '../types/auth';
 
-export const UserContext = createContext<UserContextType>({
-  user: anonymous,
-  login: async () => {
-    return;
-  },
-  logout: () => {
-    return;
-  },
-});
+import type { AuthDataType, BskyUserDataType } from '../types/auth';
 
 type UserProviderType = {
   children: ReactNode;
 };
 
 function UserProvider({ children }: UserProviderType) {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<BskyUserDataType>(anonymous);
 
-  const { mutateAsync } = useMutation({
-    mutationFn: postLogin,
+  const loginMutation = useMutation({
+    mutationFn: apiLogin,
+    onSuccess: (data) => setUser(data),
+  });
+
+  const refreshMutation = useMutation({
+    mutationFn: apiRefresh,
     onSuccess: (data) => setUser(data),
   });
 
@@ -50,13 +39,20 @@ function UserProvider({ children }: UserProviderType) {
     }
   }, []);
 
-  const navigate = useNavigate();
+  const isAnonymous = useCallback(() => {
+    return (
+      user.did === '' &&
+      user.handle === '' &&
+      user.jwt.access === '' &&
+      user.jwt.refresh === ''
+    );
+  }, [user]);
 
   const login = useCallback(
     async (data: AuthDataType) => {
       setUser(anonymous);
 
-      await mutateAsync(data, {
+      await loginMutation.mutateAsync(data, {
         onSuccess: (result: BskyUserDataType) => {
           setUser(result);
           localStorage.setItem('user', JSON.stringify(result));
@@ -64,24 +60,29 @@ function UserProvider({ children }: UserProviderType) {
         },
       });
     },
-    [navigate, mutateAsync]
+    [loginMutation, navigate]
   );
 
   const logout = useCallback(() => {
     setUser(anonymous);
 
     localStorage.removeItem('user');
-
     navigate('/', { replace: true });
   }, [navigate]);
 
+  const refresh = useCallback(async () => {
+    await refreshMutation.mutateAsync(user, {
+      onSuccess: (result: BskyUserDataType) => {
+        setUser(result);
+
+        localStorage.setItem('user', JSON.stringify(result));
+      },
+    });
+  }, [user, refreshMutation]);
+
   const value = useMemo(
-    () => ({
-      user,
-      login,
-      logout,
-    }),
-    [user, login, logout]
+    () => ({ user, isAnonymous, login, logout, refresh }),
+    [user, isAnonymous, login, logout, refresh]
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

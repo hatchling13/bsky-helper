@@ -5,12 +5,12 @@ import { isExpired } from 'react-jwt';
 import type { FormEvent } from 'react';
 
 import TextInput from '../../components/TextInput/TextInput';
-import { UserContext } from '../../providers/UserProvider';
+import { UserContext } from '../../providers/contexts';
 
 import './styles.css';
 
 function Login() {
-  const { user, login } = useContext(UserContext);
+  const { user, isAnonymous, login, refresh } = useContext(UserContext);
 
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -29,14 +29,17 @@ function Login() {
   };
 
   useEffect(() => {
-    if (user.did !== '') {
-      if (isExpired(user.jwt.access)) {
-        alert('Access token expired!');
-      } else {
-        navigate('/timeline', { replace: true });
+    const refreshIfExpired = async () => {
+      if (user.jwt.access !== '' && isExpired(user.jwt.access)) {
+        await refresh();
       }
+    };
+
+    if (!isAnonymous()) {
+      refreshIfExpired();
+      navigate('/timeline', { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, isAnonymous, refresh, navigate]);
 
   return (
     <main className="LoginPage">
