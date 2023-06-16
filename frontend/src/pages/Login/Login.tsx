@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isExpired } from 'react-jwt';
 
 import type { FormEvent } from 'react';
 
@@ -10,7 +9,7 @@ import { UserContext } from '../../providers/contexts';
 import './styles.css';
 
 function Login() {
-  const { user, isAnonymous, login, refresh } = useContext(UserContext);
+  const { user, isAnonymous, login } = useContext(UserContext);
 
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -29,17 +28,10 @@ function Login() {
   };
 
   useEffect(() => {
-    const refreshIfExpired = async () => {
-      if (user.jwt.access !== '' && isExpired(user.jwt.access)) {
-        await refresh();
-      }
-    };
-
-    if (!isAnonymous()) {
-      refreshIfExpired();
+    if (!isAnonymous) {
       navigate('/timeline', { replace: true });
     }
-  }, [user, isAnonymous, refresh, navigate]);
+  }, [user.jwt.access, isAnonymous, navigate]);
 
   return (
     <main className="LoginPage">

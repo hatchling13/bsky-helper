@@ -14,8 +14,7 @@ export type BskyUserDataType = {
 
 export type UserContextType = {
   user: BskyUserDataType;
-  isAnonymous: () => boolean;
+  isAnonymous: boolean;
   login: (data: AuthDataType) => Promise<void>;
   logout: () => void;
-  refresh: () => Promise<void>;
 };

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { isExpired } from 'react-jwt';
 
 import type { ReactNode } from 'react';
 
@@ -10,54 +11,58 @@ import { anonymous } from '../utils/constants';
 
 import type { AuthDataType, BskyUserDataType } from '../types/auth';
 
-type UserProviderType = {
-  children: ReactNode;
-};
-
-function UserProvider({ children }: UserProviderType) {
+function UserProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<BskyUserDataType>(anonymous);
 
+  const setUserWithStorage = (data: BskyUserDataType) => {
+    setUser(data);
+    localStorage.setItem('user', JSON.stringify(data));
+  };
+
+  const isAnonymous =
+    user.did === '' &&
+    user.handle === '' &&
+    user.jwt.access === '' &&
+    user.jwt.refresh === '';
+
   const loginMutation = useMutation({
     mutationFn: apiLogin,
-    onSuccess: (data) => setUser(data),
+    onSuccess: (data) => setUserWithStorage(data),
   });
 
   const refreshMutation = useMutation({
     mutationFn: apiRefresh,
-    onSuccess: (data) => setUser(data),
+    onSuccess: (data) => setUserWithStorage(data),
   });
 
+  // Load user from localStorage
   useEffect(() => {
     const localStorageUser = localStorage.getItem('user');
 
     if (localStorageUser === null) {
       localStorage.setItem('user', JSON.stringify(anonymous));
     } else {
-      setUser(JSON.parse(localStorageUser) as BskyUserDataType);
+      const storedUser = JSON.parse(localStorageUser) as BskyUserDataType;
+
+      setUser(storedUser);
     }
   }, []);
 
-  const isAnonymous = useCallback(() => {
-    return (
-      user.did === '' &&
-      user.handle === '' &&
-      user.jwt.access === '' &&
-      user.jwt.refresh === ''
-    );
-  }, [user]);
+  // Refresh if access token is expired
+  useEffect(() => {
+    if (!isAnonymous && isExpired(user.jwt.access)) {
+      refreshMutation.mutateAsync(user);
+    }
+  }, [isAnonymous, refreshMutation, user]);
 
   const login = useCallback(
     async (data: AuthDataType) => {
       setUser(anonymous);
 
       await loginMutation.mutateAsync(data, {
-        onSuccess: (result: BskyUserDataType) => {
-          setUser(result);
-          localStorage.setItem('user', JSON.stringify(result));
-          navigate('/timeline', { replace: true });
-        },
+        onSuccess: () => navigate('/timeline', { replace: true }),
       });
     },
     [loginMutation, navigate]
@@ -65,24 +70,14 @@ function UserProvider({ children }: UserProviderType) {
 
   const logout = useCallback(() => {
     setUser(anonymous);
-
     localStorage.removeItem('user');
+
     navigate('/', { replace: true });
   }, [navigate]);
 
-  const refresh = useCallback(async () => {
-    await refreshMutation.mutateAsync(user, {
-      onSuccess: (result: BskyUserDataType) => {
-        setUser(result);
-
-        localStorage.setItem('user', JSON.stringify(result));
-      },
-    });
-  }, [user, refreshMutation]);
-
   const value = useMemo(
-    () => ({ user, isAnonymous, login, logout, refresh }),
-    [user, isAnonymous, login, logout, refresh]
+    () => ({ user, isAnonymous, login, logout }),
+    [user, isAnonymous, login, logout]
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
